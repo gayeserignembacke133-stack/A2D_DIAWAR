@@ -523,7 +523,12 @@ setTimeout(function(){
 },2000);
 
 // ══════════ AUTH ══════════
-document.getElementById('btn-admin').onclick=function(){isAdmin=true;isMember=false;startApp();};
+document.getElementById('btn-admin').onclick=function(){
+  var pwd=prompt('🔐 Mot de passe administrateur :');
+  if(pwd===null)return;
+  if(pwd==='ADD2024'){isAdmin=true;isMember=false;startApp();}
+  else{alert('❌ Mot de passe incorrect !');}
+};
 document.getElementById('btn-visitor').onclick=function(){isAdmin=false;isMember=false;startApp();};
 document.getElementById('btn-member').onclick=function(){
   document.getElementById('login-screen').style.display='none';
