@@ -163,6 +163,12 @@ td{padding:8px;font-size:12px;vertical-align:middle}
 .hist-sub{font-size:10px;color:#6b7280;margin-top:2px}
 .hist-val{font-weight:800;font-size:13px;color:#0f6b3a}
 .hist-stat{font-size:10px;font-weight:700;margin-top:2px}
+.dem-card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:10px;border-left:4px solid #f59e0b}
+.dem-name{font-weight:800;font-size:13px}
+.dem-ref{font-size:10px;color:#6b7280;margin-top:1px}
+.dem-detail{font-size:12px;color:#374151;margin:8px 0}
+.dem-instruction{background:#fef9c3;border-radius:8px;padding:10px 12px;font-size:11px;color:#92400e;margin-bottom:10px;line-height:1.5}
+.dem-btns{display:flex;gap:7px}
 </style>
 </head>
 <body>
@@ -301,6 +307,13 @@ td{padding:8px;font-size:12px;vertical-align:middle}
     <div class="page" id="page-rapport">
       <div class="rg" id="rg"></div>
       <div class="card"><div class="card-title">🏅 Classement complet</div><div id="rclasse"></div></div>
+    </div>
+
+    <div class="page" id="page-demandes">
+      <div style="background:#fef9c3;border-radius:11px;padding:12px;margin-bottom:14px;font-size:12px;color:#92400e;font-weight:600">
+        🔔 Vérifiez la réception sur <strong>76 590 30 25</strong> avant de valider.
+      </div>
+      <div id="demandes-list"></div>
     </div>
 
     <div class="page" id="page-settings">
@@ -536,6 +549,7 @@ function startApp(){
     {id:'membres',icon:'👥',label:'Membres'},
     {id:'cotisations',icon:'💰',label:'Cotisations'},
     {id:'rapport',icon:'📈',label:'Rapports'},
+    isAdmin?{id:'demandes',icon:'🔔',label:'Demandes',badge:true}:null,
     isAdmin?{id:'settings',icon:'⚙️',label:'Paramètres'}:null
   ]);
   bindEvents();
@@ -580,6 +594,7 @@ function goPage(id){
   if(id==='membres')renderMembres();
   if(id==='cotisations')renderCotisations();
   if(id==='rapport')renderRapport();
+  if(id==='demandes')renderDemandes();
   if(id==='paiement')renderPaiement();
 }
 
@@ -702,7 +717,42 @@ function deleteMembre(){
   closeModal();
 }
 
-// ══════════ PAIEMENT ══════════
+// ══════════ DEMANDES ══════════
+function renderDemandes(){
+  var pend=[];for(var i=0;i<demandes.length;i++)if(demandes[i].statut==='pending')pend.push(demandes[i]);
+  var el=document.getElementById('demandes-list');
+  if(!el)return;
+  if(!pend.length){el.innerHTML='<div style="text-align:center;padding:36px;color:#6b7280;font-style:italic">✅ Aucune demande en attente.</div>';return;}
+  var opN={om:'Orange Money',wave:'Wave',free:'Free Money'};
+  var html='';
+  for(var i=0;i<pend.length;i++){
+    var d=pend[i],m=gmem(d.membreId);
+    var mn=[];for(var j=0;j<d.mois.length;j++)mn.push(MOIS_NOM[d.mois[j]]);
+    html+='<div class="dem-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div><div class="dem-name">'+(m?m.nom:'?')+'</div><div class="dem-ref">'+gcode(m||{id:0})+' · '+d.date+'</div></div><div style="font-weight:800;font-size:15px;color:#0f6b3a">'+fmtF(d.montant)+'</div></div>';
+    html+='<div class="dem-detail">📅 '+mn.join(', ')+' · 💳 '+opN[d.operateur]+'</div>';
+    html+='<div class="dem-instruction">📲 Vérifiez que <strong>'+fmtF(d.montant)+'</strong> a été reçu sur <strong>76 590 30 25</strong><br>Référence : <strong>'+d.ref+'</strong></div>';
+    html+='<div class="dem-btns"><button class="btn btn-p" data-val="'+d.id+'">✅ Valider</button><button class="btn btn-r" data-rej="'+d.id+'">❌ Rejeter</button></div></div>';
+  }
+  el.innerHTML=html;
+  var vb=el.querySelectorAll('[data-val]');for(var i=0;i<vb.length;i++)vb[i].onclick=function(){valider(parseInt(this.getAttribute('data-val')));};
+  var rb=el.querySelectorAll('[data-rej]');for(var i=0;i<rb.length;i++)rb[i].onclick=function(){rejeter(parseInt(this.getAttribute('data-rej')));};
+}
+
+function valider(did){
+  for(var i=0;i<demandes.length;i++)if(demandes[i].id===did){
+    demandes[i].statut='valide';
+    var m=gmem(demandes[i].membreId);
+    if(m){for(var j=0;j<demandes[i].mois.length;j++)m.mois[demandes[i].mois[j]]=true;sauvegarderMembre(m,false);}
+    break;
+  }
+  sauvegarderDemandes();toast('✅ Paiement validé !');renderDemandes();renderDash();updBadge();
+}
+function rejeter(did){
+  for(var i=0;i<demandes.length;i++)if(demandes[i].id===did){demandes[i].statut='rejete';break;}
+  sauvegarderDemandes();toast('❌ Demande rejetée.');renderDemandes();updBadge();
+}
+
+
 function renderPaiement(){
   if(!currentM)return;
   document.getElementById('pay-nom').textContent=currentM.nom;
