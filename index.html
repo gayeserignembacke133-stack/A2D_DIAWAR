@@ -15,7 +15,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .splash-name{font-size:22px;font-weight:800;color:#fff}
 .splash-sub{font-size:13px;color:rgba(255,255,255,.7);text-align:center;padding:0 20px}
 .splash-bar{width:180px;height:4px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden;margin-top:10px}
-.splash-fill{height:100%;background:#fff;border-radius:99px;animation:load 1.8s ease forwards}
+.splash-fill{height:100%;background:#fff;border-radius:99px;animation:load 2s ease forwards}
 @keyframes load{from{width:0}to{width:100%}}
 #login-screen{position:fixed;inset:0;background:linear-gradient(135deg,#0a4a28,#1a9a58);display:none;align-items:center;justify-content:center;z-index:500;padding:20px}
 .lbox{background:#fff;border-radius:22px;padding:36px 28px;width:100%;max-width:360px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.35)}
@@ -35,6 +35,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .mls-box input:focus{border-color:#3b82f6}
 .mls-hint{font-size:11px;color:#6b7280;margin-bottom:14px}
 .mls-err{color:#ef4444;font-size:12px;margin-bottom:10px;display:none}
+#loading-screen{position:fixed;inset:0;background:rgba(255,255,255,.9);display:none;align-items:center;justify-content:center;z-index:800;flex-direction:column;gap:12px}
+.ld-spinner{width:40px;height:40px;border:4px solid #e5e7eb;border-top-color:#0f6b3a;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ld-txt{font-size:13px;color:#6b7280;font-weight:600}
 #app{display:none;flex-direction:column;min-height:100vh}
 .topnav{background:linear-gradient(135deg,#0a4a28,#0f6b3a);padding:12px 16px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.2)}
 .tn-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
@@ -91,12 +95,11 @@ td{padding:8px;font-size:12px;vertical-align:middle}
 .mh{width:20px;text-align:center;font-size:7px;font-weight:700;color:rgba(255,255,255,.7)}
 .md{width:20px;height:20px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;user-select:none;transition:transform .1s;border:1px solid transparent}
 .md.paid{background:#0f6b3a;color:#fff}
-.md.pend{background:#f59e0b;color:#fff}
 .md.unpaid{background:#f1f5f9;color:#94a3b8;border-color:#e2e8f0}
 .md.future{background:#f8fafc;color:#e2e8f0}
 .md.click{cursor:pointer}.md.click:hover{transform:scale(1.2)}
 .badge{display:inline-block;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:700}
-.bk{background:#e6f7ee;color:#0f6b3a}.bp{background:#fff7ed;color:#d97706}.bn{background:#fdecea;color:#c0392b}.by{background:#fef9c3;color:#92400e}
+.bk{background:#e6f7ee;color:#0f6b3a}.bp{background:#fff7ed;color:#d97706}.bn{background:#fdecea;color:#c0392b}
 .mv{font-weight:800;color:#0f6b3a;font-size:12px}
 .pay-header{background:linear-gradient(135deg,#1e40af,#3b82f6);border-radius:14px;padding:18px;margin-bottom:14px;color:#fff}
 .pay-h-name{font-size:17px;font-weight:800;margin-bottom:2px}
@@ -119,16 +122,9 @@ td{padding:8px;font-size:12px;vertical-align:middle}
 .msb{padding:8px 12px;border-radius:8px;border:2px solid #e5e7eb;background:#f9fafb;font-weight:700;font-size:11px;cursor:pointer;transition:all .15s}
 .msb.on{background:#0f6b3a;color:#fff;border-color:#0f6b3a}
 .msb.done{background:#e6f7ee;color:#0f6b3a;border-color:#0f6b3a;opacity:.6;cursor:default}
-.msb.pend{background:#fef9c3;color:#92400e;border-color:#f59e0b;cursor:default}
 .montant-box{background:#f9fafb;border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .mb-lbl{font-size:12px;color:#6b7280}
 .mb-val{font-size:18px;font-weight:800;color:#0f6b3a}
-.dem-card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:10px;border-left:4px solid #f59e0b}
-.dem-name{font-weight:800;font-size:13px}
-.dem-ref{font-size:10px;color:#6b7280;margin-top:1px}
-.dem-detail{font-size:12px;color:#374151;margin:8px 0}
-.dem-instruction{background:#fef9c3;border-radius:8px;padding:10px 12px;font-size:11px;color:#92400e;margin-bottom:10px;line-height:1.5}
-.dem-btns{display:flex;gap:7px}
 .rg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
 .rc{background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.05);text-align:center}
 .rbig{font-size:20px;font-weight:800}
@@ -176,6 +172,11 @@ td{padding:8px;font-size:12px;vertical-align:middle}
   <div class="splash-name">ADD Diawar</div>
   <div class="splash-sub">Association pour le Développement de Diawar</div>
   <div class="splash-bar"><div class="splash-fill"></div></div>
+</div>
+
+<div id="loading-screen">
+  <div class="ld-spinner"></div>
+  <div class="ld-txt" id="ld-txt">Chargement des données...</div>
 </div>
 
 <div id="login-screen">
@@ -232,7 +233,7 @@ td{padding:8px;font-size:12px;vertical-align:middle}
         <button onclick="goMemberPay()" style="background:#fff;color:#1e40af;border:none;border-radius:9px;padding:9px 14px;font-weight:800;font-size:12px;cursor:pointer">Accéder →</button>
       </div>
       <div class="sg">
-        <div class="sc co"><div class="sc-lbl">👥 Membres</div><div class="sc-val vo" id="d-mem">80</div></div>
+        <div class="sc co"><div class="sc-lbl">👥 Membres</div><div class="sc-val vo" id="d-mem">—</div></div>
         <div class="sc cg"><div class="sc-lbl">✅ Collecté</div><div class="sc-val vg" id="d-col">—</div><div class="sc-sub" id="d-pct">0%</div><div class="pbar"><div class="pfill" id="d-prog" style="width:0%"></div></div></div>
         <div class="sc cr"><div class="sc-lbl">⏳ Reste</div><div class="sc-val vr" id="d-rest">—</div></div>
         <div class="sc cp"><div class="sc-lbl">🔔 En attente</div><div class="sc-val vp" id="d-pend">0</div></div>
@@ -254,6 +255,7 @@ td{padding:8px;font-size:12px;vertical-align:middle}
       <div class="crow">
         <button class="btn btn-p admin-only" id="btn-add-m">＋ Nouveau membre</button>
         <button class="btn btn-gray" onclick="window.print()">🖨️ Imprimer</button>
+        <button class="btn btn-gray admin-only" onclick="chargerDepuisSheet()">🔄 Actualiser</button>
       </div>
       <div class="tcard"><div class="twrap">
         <table>
@@ -296,13 +298,6 @@ td{padding:8px;font-size:12px;vertical-align:middle}
       </div></div>
     </div>
 
-    <div class="page" id="page-demandes">
-      <div style="background:#fef9c3;border-radius:11px;padding:12px;margin-bottom:14px;font-size:12px;color:#92400e;font-weight:600">
-        🔔 Vérifiez la réception sur <strong>76 590 30 25</strong> avant de valider.
-      </div>
-      <div id="demandes-list"></div>
-    </div>
-
     <div class="page" id="page-rapport">
       <div class="rg" id="rg"></div>
       <div class="card"><div class="card-title">🏅 Classement complet</div><div id="rclasse"></div></div>
@@ -318,7 +313,7 @@ td{padding:8px;font-size:12px;vertical-align:middle}
       <div class="setcard">
         <div class="settitle">💰 Cotisation</div>
         <div class="fg"><label>Montant mensuel (F CFA)</label><input type="number" id="set-cotis" value="1000"></div>
-        <div class="fg"><label>Mois actuel (1=Janvier)</label><input type="number" id="set-mact" value="2" min="1" max="12"></div>
+        <div class="fg"><label>Mois actuel (1=Janvier)</label><input type="number" id="set-mact" value="12" min="1" max="12"></div>
         <button class="btn btn-p" id="btn-set-save">💾 Appliquer</button>
       </div>
     </div>
@@ -344,16 +339,13 @@ td{padding:8px;font-size:12px;vertical-align:middle}
         <div class="card-title">💳 Choisir l'opérateur</div>
         <div class="ops-grid">
           <div class="op-card op-om" id="op-om" onclick="selOp('om')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Orange_Money_logo.svg/320px-Orange_Money_logo.svg.png" style="width:60px;height:40px;object-fit:contain;margin-bottom:4px" onerror="this.style.display='none'">
-            <div class="op-name">Orange Money</div><div class="op-num">76 590 30 25</div>
+            <div class="op-name">🟠 Orange Money</div><div class="op-num">76 590 30 25</div>
           </div>
           <div class="op-card op-wave" id="op-wave" onclick="selOp('wave')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Wave_logo.svg/320px-Wave_logo.svg.png" style="width:60px;height:40px;object-fit:contain;margin-bottom:4px" onerror="this.style.display='none'">
-            <div class="op-name">Wave</div><div class="op-num">76 590 30 25</div>
+            <div class="op-name">🔵 Wave</div><div class="op-num">76 590 30 25</div>
           </div>
           <div class="op-card op-free" id="op-free" onclick="selOp('free')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Free_Mobile_logo.svg/320px-Free_Mobile_logo.svg.png" style="width:60px;height:40px;object-fit:contain;margin-bottom:4px" onerror="this.style.display='none'">
-            <div class="op-name">Free Money</div><div class="op-num">76 590 30 25</div>
+            <div class="op-name">🔴 Free Money</div><div class="op-num">76 590 30 25</div>
           </div>
         </div>
         <div class="instruct" id="instruct" style="display:none">
@@ -388,118 +380,100 @@ td{padding:8px;font-size:12px;vertical-align:middle}
 
 <script>
 // ══════════ CONFIG ══════════
-var COTIS = 1000, MOIS_ACT = 1, nextId = 81;
+var API = 'https://sheetdb.io/api/v1/k88hbsmffi5gp';
+var COTIS = 1000, MOIS_ACT = 11; // Avril = index 3
 var MOIS_NOM = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 var MOIS_S = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
 var isAdmin = false, isMember = false, currentM = null, editId = null, selOper = null, payMois = [];
+var membres = [], demandes = [];
+var nextId = 81;
 
-// ══════════ SAUVEGARDE LOCALE ══════════
-function sauvegarder() {
-  try {
-    localStorage.setItem('add_membres', JSON.stringify(membres));
-    localStorage.setItem('add_demandes', JSON.stringify(demandes));
-    localStorage.setItem('add_config', JSON.stringify({COTIS:COTIS, MOIS_ACT:MOIS_ACT, nextId:nextId}));
-  } catch(e) {}
+// ══════════ SHEETDB ══════════
+function showLoading(txt) {
+  document.getElementById('loading-screen').style.display = 'flex';
+  document.getElementById('ld-txt').textContent = txt || 'Chargement...';
 }
-function charger() {
-  try {
-    var m = localStorage.getItem('add_membres');
-    if (m) membres = JSON.parse(m);
-    var d = localStorage.getItem('add_demandes');
-    if (d) demandes = JSON.parse(d);
-    var c = localStorage.getItem('add_config');
-    if (c) { var cfg=JSON.parse(c); COTIS=cfg.COTIS||1000; MOIS_ACT=cfg.MOIS_ACT||1; nextId=cfg.nextId||81; }
-  } catch(e) {}
+function hideLoading() {
+  document.getElementById('loading-screen').style.display = 'none';
 }
 
-// ══════════ DONNÉES DE BASE ══════════
-function bm(n){var a=[];for(var i=0;i<12;i++)a.push(i<Math.round(n/1000));return a;}
-var membres = [
-  {id:1,nom:'Abdou Kébé',tel:'',mois:bm(12000)},
-  {id:2,nom:'Serigne Sarr',tel:'',mois:bm(12000)},
-  {id:3,nom:'Ibra Kébé',tel:'',mois:bm(12000)},
-  {id:4,nom:'Ibra Kébé 2',tel:'',mois:bm(12000)},
-  {id:5,nom:'Ndiague Diop',tel:'',mois:bm(12000)},
-  {id:6,nom:'Cheikh Dogga Sarr',tel:'',mois:bm(12000)},
-  {id:7,nom:'Assane Sarr',tel:'',mois:bm(12000)},
-  {id:8,nom:'Thierno Sarr Daf',tel:'',mois:bm(12000)},
-  {id:9,nom:'Maleye Sarr',tel:'',mois:bm(10000)},
-  {id:10,nom:'Modou Kara Sarr',tel:'',mois:bm(10000)},
-  {id:11,nom:'Galage Ami Sarr',tel:'',mois:bm(9000)},
-  {id:12,nom:'Baye Ibra Kébé',tel:'',mois:bm(9000)},
-  {id:13,nom:'Serigne Modou Sarr Touba',tel:'',mois:bm(7000)},
-  {id:14,nom:'Sidi Sarr Gambie',tel:'',mois:bm(6000)},
-  {id:15,nom:'Ndioba Sarr',tel:'',mois:bm(6000)},
-  {id:16,nom:'Khadim Diop',tel:'',mois:bm(6000)},
-  {id:17,nom:'Fallou Sarr',tel:'',mois:bm(5000)},
-  {id:18,nom:'Galage Issa Ba',tel:'',mois:bm(5000)},
-  {id:19,nom:'Ablaye Gaye',tel:'',mois:bm(5000)},
-  {id:20,nom:'Serigne Mbacké Beye',tel:'',mois:bm(2000)},
-  {id:21,nom:'Modou Ndiaye Kébé',tel:'',mois:bm(1000)},
-  {id:22,nom:'Cheikh Diop',tel:'',mois:bm(1000)},
-  {id:23,nom:'Allé Sarr',tel:'',mois:bm(1000)},
-  {id:24,nom:'Ablaye Mbengue',tel:'778369078',mois:bm(0)},
-  {id:25,nom:'Serigne Mbacké Gaye',tel:'',mois:bm(0)},
-  {id:26,nom:'Diaw Dieng',tel:'',mois:bm(0)},
-  {id:27,nom:'Cheikh Awa Sarr',tel:'',mois:bm(0)},
-  {id:28,nom:'Abdou Lo Kébé',tel:'',mois:bm(0)},
-  {id:29,nom:'Abdou Penda Kébé',tel:'',mois:bm(0)},
-  {id:30,nom:'Khadim Mbengue',tel:'',mois:bm(0)},
-  {id:31,nom:'Cheikh Aram Sarr',tel:'',mois:bm(0)},
-  {id:32,nom:'Fallou Mbengue',tel:'',mois:bm(0)},
-  {id:33,nom:'Fallou Dieng',tel:'',mois:bm(0)},
-  {id:34,nom:'Baye Cheikh Wedji',tel:'',mois:bm(0)},
-  {id:35,nom:'Alla Sarr Touba',tel:'',mois:bm(0)},
-  {id:36,nom:'Baye Mor Sarr',tel:'',mois:bm(0)},
-  {id:37,nom:'Alla Sarr 2',tel:'',mois:bm(0)},
-  {id:38,nom:'Baye Modou Gaye',tel:'',mois:bm(0)},
-  {id:39,nom:'Khadim Sarr 1',tel:'',mois:bm(0)},
-  {id:40,nom:'Khadim Sarr 2',tel:'',mois:bm(0)},
-  {id:41,nom:'Modou Mbathio Sarr',tel:'',mois:bm(0)},
-  {id:42,nom:'Modou Kébé',tel:'',mois:bm(0)},
-  {id:43,nom:'Alla Kébé',tel:'',mois:bm(0)},
-  {id:44,nom:'Gaye Sarr',tel:'',mois:bm(0)},
-  {id:45,nom:'Maguette Sarr',tel:'',mois:bm(0)},
-  {id:46,nom:'Cheikh Gaye',tel:'',mois:bm(0)},
-  {id:47,nom:'Habibou Sarr',tel:'',mois:bm(0)},
-  {id:48,nom:'Diaw Sall',tel:'',mois:bm(0)},
-  {id:49,nom:'Abdou Dieng',tel:'',mois:bm(0)},
-  {id:50,nom:'Amdy Sall',tel:'',mois:bm(0)},
-  {id:51,nom:'Baye Sidi Sarr',tel:'',mois:bm(0)},
-  {id:52,nom:'Abdou Ndeye Diaw',tel:'',mois:bm(0)},
-  {id:53,nom:'Baye Saliou Diop',tel:'',mois:bm(0)},
-  {id:54,nom:'Ngom Sarr',tel:'',mois:bm(0)},
-  {id:55,nom:'Baye Madiaw Sarr',tel:'',mois:bm(0)},
-  {id:56,nom:'Ndioba Diop',tel:'',mois:bm(0)},
-  {id:57,nom:'Mame Gor Diop',tel:'',mois:bm(0)},
-  {id:58,nom:'Modou Sarr 2',tel:'',mois:bm(0)},
-  {id:59,nom:'Dame Diop',tel:'',mois:bm(0)},
-  {id:60,nom:'Mame Gor Gaye',tel:'',mois:bm(0)},
-  {id:61,nom:'Mame Cheikh Sarr',tel:'',mois:bm(0)},
-  {id:62,nom:'Cheikh Sarr Touba',tel:'',mois:bm(0)},
-  {id:63,nom:'Ndiague Sall',tel:'',mois:bm(0)},
-  {id:64,nom:'Sidi Sarr 2',tel:'',mois:bm(0)},
-  {id:65,nom:'Sada Sarr 2',tel:'',mois:bm(0)},
-  {id:66,nom:'Mame Gor Sarr',tel:'',mois:bm(0)},
-  {id:67,nom:'Serigne Cheikh Sarr',tel:'',mois:bm(0)},
-  {id:68,nom:'Mame Modou Sarr',tel:'',mois:bm(0)},
-  {id:69,nom:'Moustapha Gaye',tel:'',mois:bm(0)},
-  {id:70,nom:'Cheikhmbengue',tel:'',mois:bm(0)},
-  {id:71,nom:'Malick Sarr',tel:'',mois:bm(0)},
-  {id:72,nom:'Malick Sarr Colly',tel:'',mois:bm(0)},
-  {id:73,nom:'Ndiaye Sarr',tel:'',mois:bm(0)},
-  {id:74,nom:'Thierno Sarr',tel:'',mois:bm(0)},
-  {id:75,nom:'Malick Sarr 3',tel:'',mois:bm(0)},
-  {id:76,nom:'Modou Ndiguel Sarr',tel:'',mois:bm(0)},
-  {id:77,nom:'Mor Sall',tel:'',mois:bm(0)},
-  {id:78,nom:'Baye Thierno Sarr',tel:'',mois:bm(0)},
-  {id:79,nom:'Kamala Sarr',tel:'',mois:bm(0)},
-  {id:80,nom:'Modou Sarr 1',tel:'',mois:bm(0)}
-];
-var demandes = [];
+function moisToStr(arr) {
+  return arr.map(function(v){return v?'1':'0';}).join('');
+}
+function strToMois(str) {
+  var a = [];
+  for(var i=0;i<12;i++) a.push(str && str[i]==='1');
+  return a;
+}
 
-// Charger les données sauvegardées
-charger();
+function chargerDepuisSheet() {
+  showLoading('Chargement des membres...');
+  fetch(API)
+    .then(function(r){return r.json();})
+    .then(function(data){
+      membres = data.map(function(row){
+        return {
+          id: parseInt(row.id),
+          nom: row.nom,
+          tel: row.tel||'',
+          mois: strToMois(row.mois)
+        };
+      });
+      nextId = membres.length > 0 ? Math.max.apply(null, membres.map(function(m){return m.id;})) + 1 : 1;
+      hideLoading();
+      renderDash();
+      if(document.getElementById('page-membres').classList.contains('active')) renderMembres();
+    })
+    .catch(function(e){
+      hideLoading();
+      toast('⚠️ Erreur de connexion. Mode hors ligne.');
+    });
+}
+
+function sauvegarderMembre(m, isNew) {
+  showLoading(isNew ? 'Ajout en cours...' : 'Mise à jour...');
+  var row = {id: String(m.id), nom: m.nom, tel: m.tel||'', mois: moisToStr(m.mois)};
+  var url = isNew ? API : API+'/id/'+m.id;
+  var method = isNew ? 'POST' : 'PATCH';
+  var body = isNew ? JSON.stringify({data: row}) : JSON.stringify({data: row});
+  fetch(url, {
+    method: method,
+    headers: {'Content-Type':'application/json'},
+    body: body
+  })
+  .then(function(r){return r.json();})
+  .then(function(){
+    hideLoading();
+    toast(isNew ? '✅ Membre ajouté !' : '✅ Membre mis à jour !');
+    chargerDepuisSheet();
+  })
+  .catch(function(){
+    hideLoading();
+    toast('⚠️ Erreur de sauvegarde !');
+  });
+}
+
+function supprimerMembre(id) {
+  showLoading('Suppression...');
+  fetch(API+'/id/'+id, {method:'DELETE'})
+  .then(function(){
+    hideLoading();
+    toast('🗑 Membre supprimé.');
+    chargerDepuisSheet();
+  })
+  .catch(function(){
+    hideLoading();
+    toast('⚠️ Erreur de suppression !');
+  });
+}
+
+// ══════════ DEMANDES (localStorage) ══════════
+function sauvegarderDemandes(){
+  try{localStorage.setItem('add_demandes',JSON.stringify(demandes));}catch(e){}
+}
+function chargerDemandes(){
+  try{var d=localStorage.getItem('add_demandes');if(d)demandes=JSON.parse(d);}catch(e){}
+}
 
 // ══════════ HELPERS ══════════
 function gcode(m){return 'ADD-'+String(m.id).padStart(3,'0');}
@@ -519,8 +493,12 @@ function updBadge(){
 // ══════════ SPLASH ══════════
 setTimeout(function(){
   document.getElementById('splash').style.display='none';
-  document.getElementById('login-screen').style.display='flex';
-},2000);
+  chargerDemandes();
+  chargerDepuisSheet();
+  setTimeout(function(){
+    document.getElementById('login-screen').style.display='flex';
+  }, 1500);
+},1500);
 
 // ══════════ AUTH ══════════
 document.getElementById('btn-admin').onclick=function(){
@@ -557,7 +535,6 @@ function startApp(){
     {id:'dashboard',icon:'📊',label:'Accueil'},
     {id:'membres',icon:'👥',label:'Membres'},
     {id:'cotisations',icon:'💰',label:'Cotisations'},
-    isAdmin?{id:'demandes',icon:'🔔',label:'Demandes',badge:true}:null,
     {id:'rapport',icon:'📈',label:'Rapports'},
     isAdmin?{id:'settings',icon:'⚙️',label:'Paramètres'}:null
   ]);
@@ -594,7 +571,7 @@ function buildTabs(tabs){
 
 // ══════════ NAVIGATION ══════════
 function goPage(id){
-  var pages=['dashboard','membres','cotisations','demandes','rapport','settings','paiement'];
+  var pages=['dashboard','membres','cotisations','rapport','settings','paiement'];
   for(var i=0;i<pages.length;i++){var p=document.getElementById('page-'+pages[i]);if(p)p.classList.remove('active');}
   var tabs=document.querySelectorAll('.tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');
   var pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');
@@ -602,7 +579,6 @@ function goPage(id){
   if(id==='dashboard')renderDash();
   if(id==='membres')renderMembres();
   if(id==='cotisations')renderCotisations();
-  if(id==='demandes')renderDemandes();
   if(id==='rapport')renderRapport();
   if(id==='paiement')renderPaiement();
 }
@@ -637,8 +613,8 @@ function renderDash(){
 
 // ══════════ MEMBRES ══════════
 function renderMembres(){
-  var q=document.getElementById('s-m').value.toLowerCase();
-  var fs=document.getElementById('f-st').value;
+  var q=document.getElementById('s-m')?document.getElementById('s-m').value.toLowerCase():'';
+  var fs=document.getElementById('f-st')?document.getElementById('f-st').value:'';
   var filt=[];
   for(var i=0;i<membres.length;i++){var m=membres[i];if(m.nom.toLowerCase().indexOf(q)===-1)continue;if(fs&&gstat(m)!==fs)continue;filt.push(m);}
   var tb=document.getElementById('tbody-m');
@@ -650,10 +626,7 @@ function renderMembres(){
     var dots='';
     for(var j=0;j<12;j++){
       if(j>MOIS_ACT){dots+='<div class="md future"></div>';continue;}
-      var isPend=false;
-      for(var d=0;d<demandes.length;d++)if(demandes[d].membreId===m.id&&demandes[d].statut==='pending')for(var k=0;k<demandes[d].mois.length;k++)if(demandes[d].mois[k]===j)isPend=true;
       if(m.mois[j])dots+='<div class="md paid'+(isAdmin?' click':'')+'" data-id="'+m.id+'" data-mi="'+j+'">✓</div>';
-      else if(isPend)dots+='<div class="md pend" title="En attente">⏳</div>';
       else dots+='<div class="md unpaid'+(isAdmin?' click':'')+'" data-id="'+m.id+'" data-mi="'+j+'">✕</div>';
     }
     var editBtn=isAdmin?'<td class="c"><button class="btn btn-g" style="padding:4px 8px;font-size:10px" data-edit="'+m.id+'">✏️</button></td>':'<td></td>';
@@ -661,15 +634,22 @@ function renderMembres(){
   }
   tb.innerHTML=html;
   var ds=tb.querySelectorAll('.md.click');
-  for(var i=0;i<ds.length;i++)ds[i].onclick=function(){var id=parseInt(this.getAttribute('data-id')),mi=parseInt(this.getAttribute('data-mi')),m=gmem(id);if(m){m.mois[mi]=!m.mois[mi];sauvegarder();renderMembres();renderDash();}};
+  for(var i=0;i<ds.length;i++)ds[i].onclick=function(){
+    var id=parseInt(this.getAttribute('data-id')),mi=parseInt(this.getAttribute('data-mi')),m=gmem(id);
+    if(m){
+      m.mois[mi]=!m.mois[mi];
+      sauvegarderMembre(m, false);
+      renderMembres();renderDash();
+    }
+  };
   var eb=tb.querySelectorAll('[data-edit]');
   for(var i=0;i<eb.length;i++)eb[i].onclick=function(){openEdit(parseInt(this.getAttribute('data-edit')));};
 }
 
 // ══════════ COTISATIONS ══════════
 function renderCotisations(){
-  var q=document.getElementById('s-c').value.toLowerCase();
-  var fm=parseInt(document.getElementById('f-mois').value);
+  var q=document.getElementById('s-c')?document.getElementById('s-c').value.toLowerCase():'';
+  var fm=document.getElementById('f-mois')?parseInt(document.getElementById('f-mois').value):-1;
   var list=[];
   for(var i=0;i<membres.length;i++){var m=membres[i];if(m.nom.toLowerCase().indexOf(q)===-1)continue;list.push(m);}
   var tb=document.getElementById('tbody-c'),html='';
@@ -683,132 +663,6 @@ function renderCotisations(){
     html+='<tr><td><span class="num">'+(i+1)+'</span></td><td><div class="nm">'+m.nom+'</div></td>'+cells+'<td class="c"><span class="mv">'+fmtF(gtot(m))+'</span></td></tr>';
   }
   tb.innerHTML=html||'<tr><td colspan="15" style="text-align:center;padding:24px;color:#6b7280;font-style:italic">Aucun résultat.</td></tr>';
-}
-
-// ══════════ DEMANDES ══════════
-function renderDemandes(){
-  var pend=[];for(var i=0;i<demandes.length;i++)if(demandes[i].statut==='pending')pend.push(demandes[i]);
-  var el=document.getElementById('demandes-list');
-  if(!pend.length){el.innerHTML='<div style="text-align:center;padding:36px;color:#6b7280;font-style:italic">✅ Aucune demande en attente.</div>';return;}
-  var opN={om:'Orange Money',wave:'Wave',free:'Free Money'};
-  var html='';
-  for(var i=0;i<pend.length;i++){
-    var d=pend[i],m=gmem(d.membreId);
-    var mn=[];for(var j=0;j<d.mois.length;j++)mn.push(MOIS_NOM[d.mois[j]]);
-    html+='<div class="dem-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px"><div><div class="dem-name">'+(m?m.nom:'?')+'</div><div class="dem-ref">'+gcode(m||{id:0})+' · '+d.date+'</div></div><div style="font-weight:800;font-size:15px;color:#0f6b3a">'+fmtF(d.montant)+'</div></div>';
-    html+='<div class="dem-detail">📅 '+mn.join(', ')+' · 💳 '+opN[d.operateur]+'</div>';
-    html+='<div class="dem-instruction">📲 Vérifiez que <strong>'+fmtF(d.montant)+'</strong> a été reçu sur <strong>77 836 90 78</strong><br>Référence : <strong>'+d.ref+'</strong></div>';
-    html+='<div class="dem-btns"><button class="btn btn-p" data-val="'+d.id+'">✅ Valider</button><button class="btn btn-r" data-rej="'+d.id+'">❌ Rejeter</button></div></div>';
-  }
-  el.innerHTML=html;
-  var vb=el.querySelectorAll('[data-val]');for(var i=0;i<vb.length;i++)vb[i].onclick=function(){valider(parseInt(this.getAttribute('data-val')));};
-  var rb=el.querySelectorAll('[data-rej]');for(var i=0;i<rb.length;i++)rb[i].onclick=function(){rejeter(parseInt(this.getAttribute('data-rej')));};
-}
-
-function valider(did){
-  for(var i=0;i<demandes.length;i++)if(demandes[i].id===did){demandes[i].statut='valide';var m=gmem(demandes[i].membreId);if(m)for(var j=0;j<demandes[i].mois.length;j++)m.mois[demandes[i].mois[j]]=true;break;}
-  sauvegarder();toast('✅ Paiement validé !');renderDemandes();renderDash();updBadge();
-}
-function rejeter(did){
-  for(var i=0;i<demandes.length;i++)if(demandes[i].id===did){demandes[i].statut='rejete';break;}
-  sauvegarder();toast('❌ Demande rejetée.');renderDemandes();updBadge();
-}
-
-// ══════════ PAIEMENT MEMBRE ══════════
-function renderPaiement(){
-  if(!currentM)return;
-  document.getElementById('pay-nom').textContent=currentM.nom;
-  document.getElementById('pay-code-sub').textContent=gcode(currentM);
-  document.getElementById('pay-ref').textContent=gcode(currentM);
-  payMois=[];selOper=null;
-  document.getElementById('op-om').classList.remove('sel');
-  document.getElementById('op-wave').classList.remove('sel');
-  document.getElementById('op-free').classList.remove('sel');
-  document.getElementById('instruct').style.display='none';
-  var html='';
-  for(var i=0;i<=MOIS_ACT;i++){
-    if(currentM.mois[i]){html+='<button class="msb done" disabled>✓ '+MOIS_NOM[i]+'</button>';continue;}
-    var isPend=false;
-    for(var d=0;d<demandes.length;d++)if(demandes[d].membreId===currentM.id&&demandes[d].statut==='pending')for(var k=0;k<demandes[d].mois.length;k++)if(demandes[d].mois[k]===i)isPend=true;
-    if(isPend)html+='<button class="msb pend" disabled>⏳ '+MOIS_NOM[i]+'</button>';
-    else html+='<button class="msb" data-mi="'+i+'">'+MOIS_NOM[i]+'</button>';
-  }
-  document.getElementById('pay-mois').innerHTML=html;
-  var bs=document.querySelectorAll('#pay-mois .msb[data-mi]');
-  for(var i=0;i<bs.length;i++)bs[i].onclick=function(){
-    var mi=parseInt(this.getAttribute('data-mi')),idx=payMois.indexOf(mi);
-    if(idx===-1){payMois.push(mi);this.classList.add('on');}else{payMois.splice(idx,1);this.classList.remove('on');}
-    document.getElementById('pay-total').textContent=fmtF(payMois.length*COTIS);
-    if(selOper)selOp(selOper);
-  };
-  document.getElementById('pay-total').textContent=fmtF(0);
-  renderHist();
-}
-
-function selOp(op){
-  selOper=op;
-  document.getElementById('op-om').classList.remove('sel');
-  document.getElementById('op-wave').classList.remove('sel');
-  document.getElementById('op-free').classList.remove('sel');
-  document.getElementById('op-'+op).classList.add('sel');
-  var mont=fmtF(payMois.length*COTIS),ref=gcode(currentM||{id:0});
-  var steps={
-    om:['Composez <b>#144#</b> sur votre téléphone Orange','Choisissez "Transfert" puis entrez <b>76 590 30 25</b>','Entrez le montant : <b>'+mont+'</b>','Dans le motif, écrivez votre code : <b>'+ref+'</b>','Confirmez avec votre code secret'],
-    wave:['Ouvrez l\'app <b>Wave</b>','Appuyez "Envoyer" → entrez <b>76 590 30 25</b>','Montant : <b>'+mont+'</b>','Note : <b>'+ref+'</b>','Confirmez le transfert'],
-    free:['Composez <b>#555#</b> sur votre téléphone Free','Choisissez "Transfert d\'argent"','Numéro : <b>76 590 30 25</b> · Montant : <b>'+mont+'</b>','Référence : <b>'+ref+'</b>','Confirmez avec votre PIN']
-  };
-  var titles={om:'🟠 Instructions Orange Money',wave:'🔵 Instructions Wave',free:'🔴 Instructions Free Money'};
-  document.getElementById('instruct-title').textContent=titles[op];
-  var sh='';for(var i=0;i<steps[op].length;i++)sh+='<div class="step"><div class="snum">'+(i+1)+'</div><div>'+steps[op][i]+'</div></div>';
-  document.getElementById('instruct-steps').innerHTML=sh;
-  document.getElementById('instruct').style.display='block';
-}
-
-function soumettre(){
-  if(payMois.length===0){toast('⚠️ Sélectionnez au moins un mois !');return;}
-  if(!selOper){toast('⚠️ Choisissez un opérateur !');return;}
-  var now=new Date();
-  var ref=gcode(currentM)+'-'+now.getTime().toString().slice(-4);
-  var montant=payMois.length*COTIS;
-  var tel='76 590 30 25';
-
-  // Enregistrer la demande
-  demandes.push({id:demandes.length+1,membreId:currentM.id,mois:payMois.slice(),operateur:selOper,montant:montant,date:now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear(),ref:ref,statut:'pending'});
-  sauvegarder();
-  updBadge();
-
-  // Ouvrir l'opérateur directement
-  if(selOper==='om'){
-    // Orange Money — ouvre le composeur avec le code USSD
-    window.location.href = 'tel:%23144%23';
-  } else if(selOper==='wave'){
-    // Wave — ouvre l'app Wave ou le lien de paiement
-    var waveUrl = 'https://pay.wave.com/m/'+tel+'?amount='+montant+'&note='+ref;
-    window.open(waveUrl, '_blank');
-  } else if(selOper==='free'){
-    // Free Money — ouvre le composeur avec le code USSD
-    window.location.href = 'tel:%23555%23';
-  }
-
-  toast('✅ Demande enregistrée ! Effectuez le paiement maintenant.',3500);
-  payMois=[];selOper=null;
-  renderPaiement();
-}
-
-function renderHist(){
-  if(!currentM)return;
-  var my=[];for(var i=0;i<demandes.length;i++)if(demandes[i].membreId===currentM.id)my.push(demandes[i]);
-  var el=document.getElementById('pay-hist');
-  if(!my.length){el.innerHTML='<div style="color:#6b7280;font-style:italic;font-size:12px">Aucune demande soumise.</div>';return;}
-  var opN={om:'Orange Money',wave:'Wave',free:'Free Money'};
-  var stL={pending:'⏳ En attente',valide:'✅ Validé',rejete:'❌ Rejeté'};
-  var stC={pending:'#92400e',valide:'#0f6b3a',rejete:'#c0392b'};
-  var html='';
-  for(var i=my.length-1;i>=0;i--){
-    var d=my[i],mn=[];for(var j=0;j<d.mois.length;j++)mn.push(MOIS_S[d.mois[j]]);
-    html+='<div class="hist-row"><div><div class="hist-info">'+mn.join(', ')+'</div><div class="hist-sub">'+d.date+' · '+opN[d.operateur]+'</div></div><div style="text-align:right"><div class="hist-val">'+fmtF(d.montant)+'</div><div class="hist-stat" style="color:'+stC[d.statut]+'">'+stL[d.statut]+'</div></div></div>';
-  }
-  el.innerHTML=html;
 }
 
 // ══════════ RAPPORT ══════════
@@ -827,21 +681,89 @@ function getMT(){var bs=document.querySelectorAll('#mt-wrap .mt-btn'),a=[];for(v
 function openAdd(){editId=null;document.getElementById('m-title').textContent='➕ Nouveau membre';document.getElementById('m-nom').value='';document.getElementById('m-tel').value='';document.getElementById('m-del').style.display='none';buildMT(Array(12).fill(false));document.getElementById('ov-m').classList.add('open');}
 function openEdit(id){var m=gmem(id);if(!m)return;editId=id;document.getElementById('m-title').textContent='✏️ '+m.nom;document.getElementById('m-nom').value=m.nom;document.getElementById('m-tel').value=m.tel;document.getElementById('m-del').style.display='inline-flex';buildMT(m.mois.slice());document.getElementById('ov-m').classList.add('open');}
 function closeModal(){document.getElementById('ov-m').classList.remove('open');editId=null;}
+
 function saveMembre(){
   var nom=document.getElementById('m-nom').value.trim();if(!nom){alert('Nom obligatoire');return;}
   var tel=document.getElementById('m-tel').value.trim(),mois=getMT();
-  if(editId!==null){var m=gmem(editId);if(m){m.nom=nom;m.tel=tel;m.mois=mois;}}
-  else membres.push({id:nextId++,nom:nom,tel:tel,mois:mois});
-  sauvegarder();closeModal();renderMembres();renderDash();
-  document.getElementById('d-mem').textContent=membres.length;
-  toast('✅ Membre enregistré !');
+  if(editId!==null){
+    var m=gmem(editId);
+    if(m){m.nom=nom;m.tel=tel;m.mois=mois;sauvegarderMembre(m, false);}
+  } else {
+    var newM={id:nextId++,nom:nom,tel:tel,mois:mois};
+    membres.push(newM);
+    sauvegarderMembre(newM, true);
+  }
+  closeModal();
 }
+
 function deleteMembre(){
   if(!confirm('Supprimer ce membre ?'))return;
-  for(var i=0;i<membres.length;i++)if(membres[i].id===editId){membres.splice(i,1);break;}
-  sauvegarder();closeModal();renderMembres();renderDash();
-  document.getElementById('d-mem').textContent=membres.length;
-  toast('🗑 Membre supprimé.');
+  supprimerMembre(editId);
+  closeModal();
+}
+
+// ══════════ PAIEMENT ══════════
+function renderPaiement(){
+  if(!currentM)return;
+  document.getElementById('pay-nom').textContent=currentM.nom;
+  document.getElementById('pay-code-sub').textContent=gcode(currentM);
+  document.getElementById('pay-ref').textContent=gcode(currentM);
+  payMois=[];selOper=null;
+  document.getElementById('op-om').classList.remove('sel');
+  document.getElementById('op-wave').classList.remove('sel');
+  document.getElementById('op-free').classList.remove('sel');
+  document.getElementById('instruct').style.display='none';
+  var html='';
+  for(var i=0;i<=MOIS_ACT;i++){
+    if(currentM.mois[i]){html+='<button class="msb done" disabled>✓ '+MOIS_NOM[i]+'</button>';continue;}
+    var isPend=false;
+    for(var d=0;d<demandes.length;d++)if(demandes[d].membreId===currentM.id&&demandes[d].statut==='pending')for(var k=0;k<demandes[d].mois.length;k++)if(demandes[d].mois[k]===i)isPend=true;
+    if(isPend)html+='<button class="msb" style="opacity:.5" disabled>⏳ '+MOIS_NOM[i]+'</button>';
+    else html+='<button class="msb" data-mi="'+i+'">'+MOIS_NOM[i]+'</button>';
+  }
+  document.getElementById('pay-mois').innerHTML=html;
+  var bs=document.querySelectorAll('#pay-mois .msb[data-mi]');
+  for(var i=0;i<bs.length;i++)bs[i].onclick=function(){
+    var mi=parseInt(this.getAttribute('data-mi')),idx=payMois.indexOf(mi);
+    if(idx===-1){payMois.push(mi);this.classList.add('on');}else{payMois.splice(idx,1);this.classList.remove('on');}
+    document.getElementById('pay-total').textContent=fmtF(payMois.length*COTIS);
+    if(selOper)selOp(selOper);
+  };
+  document.getElementById('pay-total').textContent=fmtF(0);
+}
+
+function selOp(op){
+  selOper=op;
+  ['om','wave','free'].forEach(function(o){document.getElementById('op-'+o).classList.remove('sel');});
+  document.getElementById('op-'+op).classList.add('sel');
+  var mont=fmtF(payMois.length*COTIS),ref=gcode(currentM||{id:0});
+  var steps={
+    om:['Composez <b>#144#</b> sur votre téléphone Orange','Choisissez "Transfert" puis entrez <b>76 590 30 25</b>','Entrez le montant : <b>'+mont+'</b>','Dans le motif, écrivez : <b>'+ref+'</b>','Confirmez avec votre code secret'],
+    wave:['Ouvrez l\'app <b>Wave</b>','Appuyez "Envoyer" → entrez <b>76 590 30 25</b>','Montant : <b>'+mont+'</b>','Note : <b>'+ref+'</b>','Confirmez le transfert'],
+    free:['Composez <b>#555#</b> sur votre téléphone Free','Choisissez "Transfert d\'argent"','Numéro : <b>76 590 30 25</b> · Montant : <b>'+mont+'</b>','Référence : <b>'+ref+'</b>','Confirmez avec votre PIN']
+  };
+  var titles={om:'🟠 Instructions Orange Money',wave:'🔵 Instructions Wave',free:'🔴 Instructions Free Money'};
+  var sh='';for(var i=0;i<steps[op].length;i++)sh+='<div class="step"><div class="snum">'+(i+1)+'</div><div>'+steps[op][i]+'</div></div>';
+  document.getElementById('instruct-title').innerHTML=titles[op];
+  document.getElementById('instruct-steps').innerHTML=sh;
+  document.getElementById('instruct').style.display='block';
+}
+
+function soumettre(){
+  if(payMois.length===0){toast('⚠️ Sélectionnez au moins un mois !');return;}
+  if(!selOper){toast('⚠️ Choisissez un opérateur !');return;}
+  var now=new Date();
+  var ref=gcode(currentM)+'-'+now.getTime().toString().slice(-4);
+  var montant=payMois.length*COTIS;
+  demandes.push({id:demandes.length+1,membreId:currentM.id,mois:payMois.slice(),operateur:selOper,montant:montant,date:now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear(),ref:ref,statut:'pending'});
+  sauvegarderDemandes();
+  updBadge();
+  if(selOper==='om') window.location.href='tel:%23144%23';
+  else if(selOper==='wave') window.open('https://pay.wave.com/m/76590302?amount='+montant+'&note='+ref,'_blank');
+  else if(selOper==='free') window.location.href='tel:%23555%23';
+  toast('✅ Demande enregistrée !',3500);
+  payMois=[];selOper=null;
+  renderPaiement();
 }
 
 // ══════════ EVENTS ══════════
@@ -860,7 +782,8 @@ function bindEvents(){
   if(bss)bss.onclick=function(){
     COTIS=parseInt(document.getElementById('set-cotis').value)||1000;
     MOIS_ACT=Math.max(0,Math.min(11,parseInt(document.getElementById('set-mact').value)-1));
-    sauvegarder();renderDash();renderMembres();toast('✅ Paramètres mis à jour !');
+    toast('✅ Paramètres mis à jour !');
+    renderDash();renderMembres();
   };
 }
 </script>
